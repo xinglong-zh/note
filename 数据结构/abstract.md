@@ -98,9 +98,9 @@ A[物理存储结构]-->E[散列-hash]
 
 队列是两端操作受限的线性表，只能在队列头出队，队列尾入队。
 队列的操作
-入队  将元素加入队尾
-出队  将队头元素删除
-
+入队:EnQueue（Q,e）  将e加入队尾
+出队:DeQueue(Q,p)   堆头元素删除，返回值为p
+判空:Empty(Q)      队头和队尾相遇为空
 队列的实现
 数组实现：环形队列  头尾指针
 链表实现：头尾指针 ，头指针做出队 ，尾位置做入队
@@ -111,11 +111,85 @@ A[物理存储结构]-->E[散列-hash]
 
 ### 二叉树
 
-二叉树的遍历：
+二叉树: n个节点的有限集合
 
-+ 前序遍历
-+ 中序遍历
-+ 后续遍历
-+ 按层遍历
+1. 可以为空二叉树
+2. 根节点和左右子树，左右子树也是二叉树，递归定义。
+
+```mermaid
+graph TB;
+A((T))---B((L));
+A((T))---C((R));
+
+```
+
+二叉树的遍历：前中后续遍历，根节点的相对位置
+
++ 前序遍历：输出 T->L->R  根 左 右
+```
+递归实现：
+void preOrder(BineryTree T){
+    if(T!=NULL){
+        visit(T)             //访问根节点
+        preOrder(T->lchild)  //访问左子树
+        preOrder(T->rchild)  // 访问右子树
+    }
+}
+```
+
++ 中序遍历：输出 L->T->R  左 中 右
+
+```
+递归实现：
+void midOrder(BineryTree T){
+    if(T!=NULL){
+        midOrder(T->lchild)  // 访问左子树
+        visit(T)             // 访问根节点
+        midOrder(T-rchild)   // 访问右子树
+    }
+}
+```
+
++ 后续遍历：输出 R->L->T  右 左 中  
+
+```
+
+递归实现：
+void postOrder(BineryTree T){
+    if(T!=NUll){
+        postOrder(T->rchild)  // 访问右子树
+        postOrder(T-lchild)  //访问左子树
+        visit(T)             // 输出根节点
+    }
+}
+
+```
+
+
++ 按层遍历：自上到下 自左到右遍历
+    1. 根节点入队
+    2. 队列不空，出队并访问元素
+    3. 元素的左子树不空，加入队列
+    4. 元素的右子树不空，加入队列
+    5. 循环执行2,3,4,
+    伪代码实现如下
+        ```
+         void leverOrder(BineryTree T){
+            InitQueue(Q)   // 初始化队列
+            EnQueue(Q,T)  // 根节点入队
+            BineryTree p; // 创建一个指针
+            while(Empty(Q)){
+                // 队列不为空，循环执行
+                Dequeue(Q,p)   //出队
+                visit(p)     // 访问
+                if(p->lchild!=NULL){
+                     Enqueue(Q,p-lchild)  // 左子树不空，入队
+                }
+                if(p-rchild!=NULL){
+                      Enqueue(Q,p-rchlid)  // 右子树不空，入队
+                    }
+                }
+            }
+        ```
 
 ## 图
