@@ -150,15 +150,15 @@ void midOrder(BineryTree T){
 }
 ```
 
-+ 后续遍历：输出 R->L->T  右 左 中  
++ 后续遍历：输出 L->R->T  右 左 中  
 
 ```
 
 递归实现：
 void postOrder(BineryTree T){
     if(T!=NUll){
-        postOrder(T->rchild)  // 访问右子树
         postOrder(T-lchild)  //访问左子树
+        postOrder(T->rchild)  // 访问右子树
         visit(T)             // 输出根节点
     }
 }
