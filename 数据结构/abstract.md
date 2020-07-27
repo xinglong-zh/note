@@ -125,7 +125,14 @@ A((T))---C((R));
 
 二叉树的遍历：前中后续遍历，根节点的相对位置
 
+**二叉树遍历的核心问题 ：二维结构的线性化**
+> 需要解决：
+    1. 从节点访问左右儿子节点
+    2. 访问左儿子之后，右儿子怎么办 ==> 需要借助数据结构来记忆 ==> 可选的结构: 堆栈(前 中 后)   队列（层）
+
+
 + 前序遍历：输出 T->L->R  根 左 右
+
 ```
 递归实现：
 void preOrder(BineryTree T){
@@ -135,19 +142,67 @@ void preOrder(BineryTree T){
         preOrder(T->rchild)  // 访问右子树
     }
 }
+
+非递归实现:第一次遇到 ，print 出来为先序遍历
+1. 遇到节点 ，print ，压入栈 ，遍历左子树
+2. 左子树遍历完毕后，从栈顶弹出一个节点，并访问他
+3. 按其右指针中序遍历改节点的右子树
+
+void inOrder(BinaryTree BT){
+    BineryTree T = BT   //指针
+    Stack s  = createStack()  //创建堆栈
+    while(T||!IsEmpty(s)){   //节点不为空，栈不空
+        while(T){          //遇到节点压栈，循环遍历左子树
+            visit(T)      //**print 的顺序，第一次遇到就print为先序 **
+            Push(s,T)
+            T = T->lchild
+        }
+        if(!IsEmpty(s)){
+            // 栈不为空
+            T = Top(s)   //弹出节点 并访问
+            T = T -> rchild  // 按右指针做中序遍历
+        }
+    } 
+}
+
+
 ```
 
 + 中序遍历：输出 L->T->R  左 中 右
 
 ```
 递归实现：
-void midOrder(BineryTree T){
+void inOrder(BineryTree T){
     if(T!=NULL){
         midOrder(T->lchild)  // 访问左子树
         visit(T)             // 访问根节点
         midOrder(T-rchild)   // 访问右子树
     }
 }
+
+非递归实现：  第二次遇到节点 ，print出来为中序
+
+1. 遇到节点 ，先压入栈 ，遍历左子树
+2. 左子树遍历完毕后，从栈顶弹出一个节点，并访问他
+3. 按其右指针中序遍历改节点的右子树
+
+void inOrder(BinaryTree BT){
+    BineryTree T = BT   //指针
+    Stack s  = createStack()  //创建堆栈
+    while(T||!IsEmpty(s)){   //节点不为空，栈不空
+        while(T){          //遇到节点压栈，循环遍历左子树
+            Push(s,T)
+            T = T->lchild
+        }
+        if(!IsEmpty(s)){
+            // 栈不为空
+            T = Top(s)   //弹出节点 并访问
+            visit(T)     //**print 的顺序，第二次遇到就print为中序 **
+            T = T -> rchild  // 按右指针做中序遍历
+        }
+    } 
+}
+
 ```
 
 + 后续遍历：输出 L->R->T  右 左 中  
@@ -167,29 +222,65 @@ void postOrder(BineryTree T){
 
 
 + 按层遍历：自上到下 自左到右遍历
-    1. 根节点入队
-    2. 队列不空，出队并访问元素
-    3. 元素的左子树不空，加入队列
-    4. 元素的右子树不空，加入队列
-    5. 循环执行2,3,4,
-    伪代码实现如下
-        ```
-         void leverOrder(BineryTree T){
-            InitQueue(Q)   // 初始化队列
-            EnQueue(Q,T)  // 根节点入队
-            BineryTree p; // 创建一个指针
-            while(Empty(Q)){
-                // 队列不为空，循环执行
-                Dequeue(Q,p)   //出队
-                visit(p)     // 访问
-                if(p->lchild!=NULL){
-                     Enqueue(Q,p-lchild)  // 左子树不空，入队
-                }
-                if(p-rchild!=NULL){
-                      Enqueue(Q,p-rchlid)  // 右子树不空，入队
-                    }
-                }
-            }
-        ```
+    
+```
+使用队列实现：
+1. 根节点入队
+2. 从队列中取出一个元素
+3. 访问元素，
+4. 左右儿子非空加入队列
+5。循环2,3，4
 
-## 图
+void leverOrder(BineryTree T){
+    InitQueue(Q)   // 初始化队列
+    EnQueue(Q,T)  // 根节点入队
+    BineryTree p; // 创建一个指针
+    while(Empty(Q)){
+             // 队列不为空，循环执行
+        Dequeue(Q,p)   //出队
+        visit(p)     // 访问
+        if(p->lchild!=NULL){
+            Enqueue(Q,p-lchild)  // 左子树不空，入队
+        }
+
+        if(p-rchild!=NULL){
+            Enqueue(Q,p-rchlid)  // 右子树不空，入队
+        }
+    }
+}
+```
+### 二叉搜索树
+
+
+### 平衡二叉树
++ RR旋转
++ LL旋转
++ LR旋转
++ RL旋转
+
+### 堆（heap）
+可以用来实现优先队列
+插入
+删除
+
+### 哈夫曼树（可以用来做编码的压缩）
+构造:每次把权值最小的两个二叉树合并 ，借助最小堆实现
+
+
+## 图  多对多的关系
+G(V,E)
+最短路径问题
+最小生成树问题
+
+图的表示
+1. 邻接矩阵
+
+G[i][j] = 1 or 0  . <Vi,vj> 存在边 1 
+使用一维数组 ，压缩一半  原先的G[i][j] = A[i*(i+1)/2 + j] 
+
+2. 邻接表
+
+
+图的遍历
+BFS(breadth first search) 广度优先  (层序遍历，队列)
+DFS（depth first search） 深度优先 （先序遍历，堆栈）
