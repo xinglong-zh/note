@@ -1,6 +1,5 @@
 import random
 
-
 def getPass():
     userInfo = {
         '156': 'hello',
@@ -29,7 +28,16 @@ def getpass1():
     ]
     return random.choice(userInfos)
 
+def getrich(salary:int,years:float,percent=0.12)->float:
+    sum = 0
+    for i in range(int(years*12)):
+        sum =  salary + round(sum*(1+percent/12),2)
+    return sum
 
-user = getpass1()
+res = getrich(5000,15)  
+print(res)
+# user = getpass1()
 
-print(user['username'], user['passwd'])
+
+# print(user['username'], user['passwd'])
+
