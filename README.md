@@ -17,3 +17,8 @@
 - [ ] java
 - [ ] CSS
 - [ ] HTML
+
+### others
+
+- [markdown](https://markdown.com.cn/)   .md写法
+- [mermaid](http://mermaid-js.github.io/mermaid/#/)  .md绘图
