@@ -204,4 +204,29 @@ If no circular dependencies exist, when one or more collaborating beans are bein
 
 默认 Singleton Scope , reuse
 可以指定 Prototype Scope ,每次请求都会重新创建
-其他四种在 ApplicationContext : request , session , applicaton , websockets
+其他四种在 ApplicationContext : request , session , application , websocket
+
+### annotation-base
+
+---
+
+The @Bean annotation is used to indicate that a method instantiates, configures, and initializes a new object to be managed by the Spring IoC container.
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public MyService myService() {
+        return new MyServiceImpl();
+    }
+}
+```
+
+等价于
+
+```xml
+<beans>
+    <bean id="myService" class="com.acme.services.MyServiceImpl"/>
+</beans>
+```
