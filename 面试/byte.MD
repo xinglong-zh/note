@@ -27,6 +27,58 @@
 
 ## leecode
 
+**回溯算法**: 适合全排列问题
+算法框架:
+
+```python
+  def backtrace :
+    if  条件成立 
+        // 操作
+        return;
+    
+    for  选项  in 候选列表:
+
+       选择当前选项(状态改变)
+       backtrace();
+       撤销当前选择(回溯)
+```
+
+```js
+ const backtrace =(ans,combine,deepth,used)=>{
+        if(deepth==nums.length){
+            ans.push(combine.concat());
+            return;
+        }
+
+        for(let i =0;i<nums.length;i++){
+            if(used[i]==true){
+                continue;
+            }
+            // 选择当前元素
+            combine.push(nums[i]);
+            used[i] = true;
+
+            backtrace(ans,combine,deepth+1,used);
+
+            // 撤销当前操作,回退到树的上一个状态
+            combine.pop();
+            used[i] = false;
+
+        }
+
+    }
+```
+
+**局部贪心算法**: 每次选择当前最大的
+
+```js
+
+```
+
+**动态规划**: 当前问题的解 , 由子问题组成
+
+**分治的思想**:大问题划分为子问题
+
 ---
 
 ## highscalability.com
