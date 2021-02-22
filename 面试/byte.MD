@@ -53,6 +53,33 @@ lightening the load off tier . use cache and CDN.
 ## 面经
 
 编程题：有10个篮子，分别装有1，2，4，8，16，32，64，128，256，512 个苹果，篮子编号为 0 ~ 9，请问如果正好想取 825 个苹果， 需要的篮子编号为多少？例如取 5 个苹果，需要 0，2 号篮子（1 + 4 个）。
+
+```js
+// 尝试使用dfs + 回溯.  可以解决
+var Sum = function(nums, target) {
+     let ans =[];
+
+    const backtrace = (combine,target,idx)=>{
+        if(target==0){
+            ans.push(combine);
+            return;
+        }
+        if(idx<0){
+            return;
+        }
+
+        // 做选择
+        backtrace(combine,target,idx-1);
+        
+        if(target-nums[idx]>=0){
+            backtrace([...combine,nums[idx]],target-nums[idx],idx-1);
+        }
+    }
+    backtrace(ans,target,nums.length-1);
+};
+
+```
+
 编程题：正则匹配邮箱
 Vue 和 watch 的实现原理和所依赖的数据
 EventLoop， 宏任务微任务
