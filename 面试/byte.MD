@@ -187,8 +187,9 @@ import 和requre 的区别
 + 垃圾回收:
 
 1. <https://segmentfault.com/a/1190000018605776>
+2. 知乎<https://zhuanlan.zhihu.com/p/82896897>
 
-+ 面试题
++ 面试题(20210223)
 
 1. 盒子模型
 
@@ -211,3 +212,22 @@ import 和requre 的区别
   },0)
 
   ```
+
+4. == ===的不同
+
++ todo:
+前端手撕算法
+
+防抖、节流
+深浅拷贝
+数组乱序、数组去重（各种时间空间复杂度）
+数组filter
+数组flat（平展一层到多层）
+手写call、bind、apply（及了解这三种的区别）
+八种继承及各种继承之间的特点
+实现instanceof
+实现new的过程
+lazyman
+jsonp的实现
+函数的柯力化
+promise、promise.all、promise.retry
