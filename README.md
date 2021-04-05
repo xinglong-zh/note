@@ -1,24 +1,7 @@
-# note
+# 资料网站
 
-## TODOS
+<https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E9%A6%96%E9%A1%B5>
+<<https://vitejs.dev/guide>
+<https://v3.vuejs.org/>
 
-### BOOK
-
-- [x] 数据结构
-- [ ] 计算机组成  
-- [x] 操作系统
-- [ ] 编译原理
-- [x] 数据库
-- [ ] 计算机网络
-
-### for work
-
-- [ ] JS/TS
-- [ ] java
-- [ ] CSS
-- [ ] HTML
-
-### others
-
-- [markdown](https://markdown.com.cn/)   .md写法
-- [mermaid](http://mermaid-js.github.io/mermaid/#/)  .md绘图
+问题：vue press 是否可以基于vite 来开发。
