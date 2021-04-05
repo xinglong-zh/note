@@ -135,6 +135,12 @@ var Sum = function(nums, target) {
 编程题：正则匹配邮箱
 Vue 和 watch 的实现原理和所依赖的数据
 EventLoop， 宏任务微任务
+> stack :[frame(function)] , head:[object] , queue:[message=>handler];
+一个 JavaScript 运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理这个消息的回调函数。
+在 事件循环 期间的某个时刻，运行时会从最先进入队列的消息开始处理队列中的消息。被处理的消息会被移出队列，并作为输入参数来调用与之关联的函数。
+宏任务: I/O 操作 , setTimeout , setInterval ,requestAnimationFrame
+微任务: process.nextTick   , MutationOberser  , Promise.then  catch ,finally
+
 类式继承的方案
 http 握手原理
 Koa 中间件机制及代码实现
@@ -178,4 +184,50 @@ import 和requre 的区别
 7. <https://juejin.cn/post/6922290178836922381>
 8. <https://leetcode-cn.com/circle/discuss/SVKmhR/>
 
-+ 555
++ 垃圾回收:
+
+1. <https://segmentfault.com/a/1190000018605776>
+2. 知乎<https://zhuanlan.zhihu.com/p/82896897>
+
++ 面试题(20210223)
+
+1. 盒子模型
+
+2. 实现a函数
+
+  ```js
+  a(fn) = function(a,b,c){ return a+b+c } ,a(fn2) = function(a,b,c,d){return a\*b\*c\*d}
+  实现 a(fn)(1)(2)(3)
+  ```
+
+3. 实现timer函数
+
+  ```js
+  let t =  timer(function(){
+    console.log(1)
+  },100,10)  // 打印1 , 100次  , 间隔10秒
+
+  setTimeout(_=>{
+    timer.cancel(t)
+  },0)
+
+  ```
+
+4. == ===的不同
+
++ todo:
+前端手撕算法
+
+防抖、节流
+深浅拷贝
+数组乱序、数组去重（各种时间空间复杂度）
+数组filter
+数组flat（平展一层到多层）
+手写call、bind、apply（及了解这三种的区别）
+八种继承及各种继承之间的特点
+实现instanceof
+实现new的过程
+lazyman
+jsonp的实现
+函数的柯力化
+promise、promise.all、promise.retry
