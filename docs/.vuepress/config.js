@@ -12,13 +12,14 @@ module.exports ={
         ],
         // 侧边栏配置
         sidebar:[
-            ['/','HOME'],
+            ['/','资料'],
             ['/ts/','TS+JS'],
             ['/vite/','VITE+VUE'],
             ['/golang/','Golang'],
             ['/java/','JAVA'],
             ['/nginx/','Nginx'],
-            ['/k8s/','K8s']
+            ['/k8s/','K8s'],
+            ['/todo/','todos'],
         ],
         smoothScroll:true,
     }

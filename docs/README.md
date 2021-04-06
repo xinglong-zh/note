@@ -1,8 +1,20 @@
 
-# Hello VuePress
+# 记录
 
-## demo
+## 学习笔记或遇到的问题
 
-:::tip 自定义标题
-自定义容器
-:::
+- sass <https://www.sass.hk/docs/>
+- flex <http://www.ruanyifeng.com/blog/2015/07/flex-examples.h>
+
+每日想法
+
+- nginx 配置
+- java + go 技术栈
+- vue3 + TS + vite
+- leeCode
+
+## todos
+
+---
+
+- 日常资料
