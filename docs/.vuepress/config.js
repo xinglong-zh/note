@@ -7,26 +7,36 @@ module.exports = {
         // 导航栏配置
         nav: [
             { text: 'home', link: '/' },
+            { text: 'todo', link: '/todo/' },
+            { text: 'bed', link: '/bed/' },
+            { text: 'fed', link: '/fed/' },
+            { text: 'deploy', link: '/deploy/' },
             {
                 text: 'demo',
                 items: [
-                    { text: 'todo', link: '/todo/' },
-                    { text: 'server', link: '/server/' },
-                    { text: 'fed', link: '/fed/' },
-
+                    { text: 'demo', link: '' },
                 ]
             }
         ],
         // 侧边栏配置
         sidebar: {
             '/todo/': [
-                '',
                 'flex',
                 'sass'
             ],
-            '/deploy/':[],
-            '/server/':[],
-            '/fed/':[],
+            '/deploy/':[
+                'k8s',
+                'docker'
+            ],
+            '/bed/':[
+                'java',
+                'golang',
+            ],
+            '/fed/':[
+                'vite',
+                'ts',
+                'nginx',
+            ],
             '/': [''],
         },
         smoothScroll: true,
