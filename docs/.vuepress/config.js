@@ -1,7 +1,8 @@
 module.exports = {
     title: 'note demo',
     description: 'a note space base on vue press',
-    base: '/note/', // github访问路径，
+    // base: '/note/', // github访问路径，
+    base: '/', // nginx 部署路径，
     home: true,
     themeConfig: {
         // 导航栏配置

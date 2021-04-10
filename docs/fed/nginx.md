@@ -1,1 +1,3 @@
-# nginx 
+# nginx
+
+<http://nginx.org/en/docs/>
