@@ -47,3 +47,44 @@ location 选择顺序: 最长前缀 > 正则表达式 > 最先满足
 ## admin guide
 
 <https://docs.nginx.com/nginx/admin-guide/>
+
+## load  balance
+
+The following load balancing mechanisms (or methods) are supported in nginx:
+
+- round-robin — requests to the application servers are distributed in a round-robin fashion,
+- least-connected — next request is assigned to the server with the least number of active connections,
+- ip-hash — a hash-function is used to determine what server should be selected for the next request (based on the client’s IP address).
+
+docker 起三个服务模拟
+
+```bash
+docker run --name 81 -p 81:80 -d nginx:alpine
+docker run --name 82 -p 82:80 -d nginx:alpine
+docker run --name 83 -p 83:80 -d nginx:alpine
+
+upstream myapp {
+    ip_hash; #Session persistence
+    #least_conn; # istributing the new requests to a less busy server instead.
+    server  localhost:81 weight=3;
+    server  localhost:82;
+    server  localhost:83;
+}
+
+server {
+    listen  8080;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://myapp;
+    }
+
+}
+```
+
+**need further reading**
+<http://nginx.org/en/docs/http/load_balancing.html>
+
+## 高可用
+
+keepalived + nginx 
