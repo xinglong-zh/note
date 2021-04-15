@@ -5,6 +5,7 @@
 
 - sass <https://www.sass.hk/docs/>
 - flex <http://www.ruanyifeng.com/blog/2015/07/flex-examples.h>
+- nginx体系结构 <http://www.aosabook.org/en/nginx.html>  
 
 每日想法
 
