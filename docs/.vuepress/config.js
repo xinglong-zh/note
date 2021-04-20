@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'note demo',
+    title: 'note',
     description: 'a note space base on vue press',
     base: '/note/', // github访问路径，
     // base: '/', // nginx 部署路径，
@@ -25,15 +25,15 @@ module.exports = {
                 'flex',
                 'sass'
             ],
-            '/deploy/':[
+            '/deploy/': [
                 'k8s',
                 'docker'
             ],
-            '/bed/':[
+            '/bed/': [
                 'java',
                 'golang',
             ],
-            '/fed/':[
+            '/fed/': [
                 'vite',
                 'ts',
                 'nginx',
