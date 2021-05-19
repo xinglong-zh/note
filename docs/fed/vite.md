@@ -258,3 +258,57 @@ module.exports = merge(common,{
     },
 })
 ```
+
+## [nabbdom](https://github.com/snabbdom/snabbdom)
+
+### vnode
+
+Properties
+
+- sel:String  The .sel property of a virtual node is the CSS selector passed to h() during creation.   *css选择器*
+- data:OBject The .data property of a virtual node is the place to add information for modules to access and manipulate the real DOM element when it is created; Add styles, CSS classes, attributes, etc.  *dom属性*
+- children：Array during creation. .children is simply an Array of virtual nodes that should be added as children of the parent DOM node upon creation.  *虚拟节点的子节点数组*
+- text：String The .text property is created when a virtual node is created with only a single child that possesses text and only requires document.createTextNode() to be used. *只有一个使用createTextNode创建的子节点*
+- elm ：Element  The .elm property of a virtual node is a pointer to the real DOM node created by snabbdom. This property is very useful to do calculations in hooks as well as modules.
+- key:String|Number The .key property is used to keep pointers to DOM nodes that existed previously to avoid recreating them if it is unnecessary. This is very useful for things like list reordering.  *diff时使用key作比较*
+
+```js
+export function vnode(sel, data, children, text, elm) {
+    let key = data == undefined ? undefined : data.key;
+    return { sel, data, children, text, elm, key };
+}
+
+
+/**
+ * h函数 ，创建出虚拟节点
+ * @param {String} a selector 
+ * @param {Object} b data 
+ * @param {Array|String} c children  // 子元素 
+ */
+export function h(a, b, c) {
+    // 第一种情况 ，最简易的  h('div',{key:'key'},'hello')
+    if (typeof c == 'string') {
+        return vnode(a, b, undefined, c, undefined);
+    }
+    // 第二种情况 ，c是数组 ，数组里面包含 h('ul',{key:'key'},[h('li',{key:1},'1')]);
+    if (Array.isArray(c)) {
+        let children = [...c];
+        return vnode(a, b, children, undefined, undefined);
+    }
+    // 第三种情况 ,  h('div',{key:"key"},h('div',{key:2},"inner"))  // c是vnode对象 具有sel 属性
+    if (c.sel) {
+        let children = [];
+        children.push(c);
+        return vnode(a, b, children, undefined, undefined);
+    }
+}
+```
+
+### patch
+
+- 新旧节点，不是同一个节点时 ， 在节点直接插入新节点，删除旧节点
+- 新旧节点是统一节点时，进行精细化比较 *从用diff算法*
+
+### diff
+
+传统diff算法 ，采用四指针思路
