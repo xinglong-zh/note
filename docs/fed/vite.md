@@ -78,6 +78,116 @@ export default defineConfig({
 
 ```
 
+### vite+vue3+ts 项目改造记录
+
+- 原始项目内部创建子项目：migration  
+
+```sh
+yarn create @vitejs/app migration --template vue-ts
+cd migration
+yarn
+yarn dev
+```
+
+- 配置vite.config.ts
+
+- 文件迁入 /migration
+- 安装依赖
+element 升级 element-plus, vuex 升级 vuex@next
+
+```sh
+yarn add  element-plus html2canvas  axios vuex@next leaflet topojson vue-router@4  
+yarn add sass  jest --dev
+```
+
+- 修改main.js
+
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+
+/**element ui 引入 */
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
+import 'dayjs/locale/zh-cn'
+import locale from 'element-plus/lib/locale/lang/zh-cn'; // 国际化，中午支持
+
+import store from './store';  // vuex  store  
+import router from './router'
+
+import 'leaflet/dist/leaflet.css'  // leaflet css
+
+import axios from 'axios';
+const app = createApp(App)
+app.config.globalProperties.$axios = axios;  // 全局挂载
+app.use(ElementPlus,{locale}).use(store).use(router).mount('#app')
+
+```
+
+- 升级store
+
+```js
+import {createStore} from 'vuex'
+// https://next.vuex.vuejs.org/zh/index.html  参考地址
+const store = createStore({
+    state:{
+
+    },
+    /**改变state 使用mutation 内部定义方法 */
+    mutations:{
+
+    },
+    /**   获取state 使用getter 方法  */
+    getters:{
+
+    },
+    actions:{
+
+    },
+    modules:{
+
+    }
+})
+
+export default store;
+```
+
+- 配置router
+
+```js
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+
+// https://next.router.vuejs.org/zh/installation.html  参考地址
+import Layout from '@/components/Layout.vue'
+const Home = () => import('@/views/home/index.vue')
+const Production = () => import('@/views/production/index.vue')
+const Statistical = () => import('@/views/statistical/index.vue')
+const Verification = () => import('@/views/verification/index.vue')
+const Management = () => import('@/views/management/index.vue')
+
+
+const routes = [
+    {
+        path: '/home',
+        name: 'home',
+        component: Layout, // 嵌套路由
+        children: [
+            {
+                path: '',
+                component: Home,
+            }
+        ]
+    },
+]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: routes,
+})
+
+export default router
+```
+
 ## webpack  配置
 
 ### 概念
