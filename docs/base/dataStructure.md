@@ -130,10 +130,9 @@ A((T))---C((R));
     1. 从节点访问左右儿子节点
     2. 访问左儿子之后，右儿子怎么办 ==> 需要借助数据结构来记忆 ==> 可选的结构: 堆栈(前 中 后)   队列（层）
 
-
 + 前序遍历：输出 T->L->R  根 左 右
 
-```
+```sh
 递归实现：
 void preOrder(BineryTree T){
     if(T!=NULL){
@@ -170,7 +169,7 @@ void inOrder(BinaryTree BT){
 
 + 中序遍历：输出 L->T->R  左 中 右
 
-```
+```sh
 递归实现：
 void inOrder(BineryTree T){
     if(T!=NULL){
@@ -207,7 +206,7 @@ void inOrder(BinaryTree BT){
 
 + 后续遍历：输出 L->R->T  右 左 中  
 
-```
+```sh
 
 递归实现：
 void postOrder(BineryTree T){
@@ -220,10 +219,9 @@ void postOrder(BineryTree T){
 
 ```
 
-
 + 按层遍历：自上到下 自左到右遍历
-    
-```
+
+```sh
 使用队列实现：
 1. 根节点入队
 2. 从队列中取出一个元素
@@ -249,37 +247,40 @@ void leverOrder(BineryTree T){
     }
 }
 ```
+
 ### 二叉搜索树
 
-
 ### 平衡二叉树
+
 + RR旋转
 + LL旋转
 + LR旋转
 + RL旋转
 
 ### 堆（heap）
+
 可以用来实现优先队列
 插入
 删除
 
 ### 哈夫曼树（可以用来做编码的压缩）
+
 构造:每次把权值最小的两个二叉树合并 ，借助最小堆实现
 
-
 ## 图  多对多的关系
+
 G(V,E)
 最短路径问题
 最小生成树问题
 
 图的表示
+
 1. 邻接矩阵
 
-G[i][j] = 1 or 0  . <Vi,vj> 存在边 1 
-使用一维数组 ，压缩一半  原先的G[i][j] = A[i*(i+1)/2 + j] 
+G[i][j] = 1 or 0  . <Vi,vj> 存在边 1
+使用一维数组 ，压缩一半  原先的G[i][j] = A[i*(i+1)/2 + j]
 
 2. 邻接表
-
 
 图的遍历
 BFS(breadth first search) 广度优先  (层序遍历，队列)

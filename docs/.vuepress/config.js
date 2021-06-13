@@ -12,20 +12,16 @@ module.exports = {
             { text: 'bed', link: '/bed/' },
             { text: 'fed', link: '/fed/' },
             { text: 'deploy', link: '/deploy/' },
-            {
-                text: 'demo',
-                items: [
-                    { text: 'demo', link: '' },
-                ]
-            }
         ],
         // 侧边栏配置
         sidebar: {
             '/todo/': [
+                '',
                 'flex',
                 'sass'
             ],
             '/deploy/': [
+                '',
                 'k8s',
                 'docker'
             ],
@@ -37,9 +33,11 @@ module.exports = {
                 'vite',
                 'ts',
                 'nginx',
+                'optimize',
             ],
             '/': [''],
         },
         smoothScroll: true,
+        lastUpdated: 'Last Updated', // string | boolean
     }
 }

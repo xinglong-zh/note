@@ -23,8 +23,8 @@
 ### HTPP
 
 wireshark 报文实例:
-![http请求报文](../img/http-req.png)
-![http响应报文](../img/http-resp.png)
+![http请求报文](../images/os/http-req.png)
+![http响应报文](../images/os/http-resp.png)
 
 ### SMTP
 
