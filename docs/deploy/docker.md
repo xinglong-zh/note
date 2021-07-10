@@ -3,17 +3,19 @@
 ## docker 安装
 
 <https://docs.docker.com/engine/install/ubuntu/>
+<https://mirror.tuna.tsinghua.edu.cn/help/docker-ce/>
 
 ``` bash
-apt-get update
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
+sudo apt-get remove docker docker-engine docker.io
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 
 # 安装
 sudo apt-get update
@@ -26,7 +28,10 @@ sudo docker run hello-world
 #  use Docker as a non-root user
 # sudo usermod -aG docker <your-user>
 sudo usermod -aG docker ${USER}
-sudo systemctl restart docker
+# sudo systemctl restart docker
+sudo service docker stop
+sudo service docker start
+
 newgrp - docker
 # https://www.runoob.com/linux/linux-command-manual.html
 ```
