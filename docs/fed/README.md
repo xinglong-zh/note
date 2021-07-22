@@ -83,10 +83,89 @@ const 块作用域，行为与let基本相同 ，声明变量必须初始化 。
 ```
 
 - String:
+ECMAScript中的字符串是不可变的（immutable），意思是一旦创建，它们的值就不能变了。要修改某个变量中的字符串值，必须先销毁原始的字符串，然后将包含新值的另一个字符串保存到该变量.
+ECMAScript 6新增了使用模板字面量定义字符串的能力。与使用单引号或双引号不同，模板字面量保留换行字符，可以跨行定义字符串
+```js
+const value = 20;
+const  str = `hello ,wolrd .
+保留换行
+使用差值：${value} , ${value.toString().slice(1)}
+`
+```
+tag function ：标签函数 ,Tag functions don't even need to return a string!
+
+```js
+let person = 'Mike';
+let age = 28;
+
+function myTag(strings, personExp, ageExp) {
+  let str0 = strings[0]; // "That "
+  let str1 = strings[1]; // " is a "
+  let str2 = strings[2]; // "."
+
+  let ageStr;
+  if (ageExp > 99){
+    ageStr = 'centenarian';
+  } else {
+    ageStr = 'youngster';
+  }
+
+  // We can even return a string built using a template literal
+  return `${str0}${personExp}${str1}${ageStr}${str2}`;
+}
+
+let output = myTag`That ${ person } is a ${ age }.`;
+
+console.log(output);
+// That Mike is a youngster.
+```
+因为表达式参数的数量是可变的，所以通常应该使用剩余操作符（rest operator）将它们收集到一个数组中.
+
+
+```js
+let a = 6 ,b=9;
+
+function simpleTag(strings,...expressions){
+  console.log(strings)
+  for(const expression of expressions){
+    console.log(expression)
+  }
+
+  return 'foobar'
+}
+
+// The special raw property, available on the first argument to the tag function, allows you to access the raw strings as they were entered, without processing escape sequences.
+
+function tag(strings) {
+  console.log(strings.raw[0]);
+}
+
+tag`string text line 1 \n string text line 2`;
+// logs "string text line 1 \n string text line 2" ,
+
+```
 
 - Symbol:
 
-复杂数据类型: Object
+ES6 新增的类型 ，用来做对象的key
+如果运行时的不同部分需要共享和重用符号实例，那么可以用一个字符串作为键，在全局符号注册表中创建并重用符号
+全局注册表中的符号必须使用字符串键来创建
+即使采用相同的符号描述，在全局注册表中定义的符号跟使用Symbol()定义的符号也并不等同：
+即使采用相同的符号描述，在全局注册表中定义的符号跟使用Symbol()定义的符号也并不等同：
+```js
+ /** Symbol([description])  */
+let symbol  = Symbol('foo') ; // 局部注册
+let globalSymbol  = Symbol.for('foo'); // 全局注册的  
+console.log(Symbol.ketFor(symbol)); //  查找symbol 对应的键 foo 
+```
+
+
+复杂数据类型: 
+- Object
+
+因为在ECMAScript中Object是所有对象的基类，所以任何对象都有这些属性和方法
+![object](../images/fed/object.png)
+
 
 - 控制流
 
