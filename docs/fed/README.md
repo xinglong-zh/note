@@ -85,6 +85,7 @@ const 块作用域，行为与let基本相同 ，声明变量必须初始化 。
 - String:
 ECMAScript中的字符串是不可变的（immutable），意思是一旦创建，它们的值就不能变了。要修改某个变量中的字符串值，必须先销毁原始的字符串，然后将包含新值的另一个字符串保存到该变量.
 ECMAScript 6新增了使用模板字面量定义字符串的能力。与使用单引号或双引号不同，模板字面量保留换行字符，可以跨行定义字符串
+
 ```js
 const value = 20;
 const  str = `hello ,wolrd .
@@ -92,6 +93,7 @@ const  str = `hello ,wolrd .
 使用差值：${value} , ${value.toString().slice(1)}
 `
 ```
+
 tag function ：标签函数 ,Tag functions don't even need to return a string!
 
 ```js
@@ -119,8 +121,8 @@ let output = myTag`That ${ person } is a ${ age }.`;
 console.log(output);
 // That Mike is a youngster.
 ```
-因为表达式参数的数量是可变的，所以通常应该使用剩余操作符（rest operator）将它们收集到一个数组中.
 
+因为表达式参数的数量是可变的，所以通常应该使用剩余操作符（rest operator）将它们收集到一个数组中.
 
 ```js
 let a = 6 ,b=9;
@@ -152,6 +154,7 @@ ES6 新增的类型 ，用来做对象的key
 全局注册表中的符号必须使用字符串键来创建
 即使采用相同的符号描述，在全局注册表中定义的符号跟使用Symbol()定义的符号也并不等同：
 即使采用相同的符号描述，在全局注册表中定义的符号跟使用Symbol()定义的符号也并不等同：
+
 ```js
  /** Symbol([description])  */
 let symbol  = Symbol('foo') ; // 局部注册
@@ -159,13 +162,50 @@ let globalSymbol  = Symbol.for('foo'); // 全局注册的
 console.log(Symbol.ketFor(symbol)); //  查找symbol 对应的键 foo 
 ```
 
+复杂数据类型:
 
-复杂数据类型: 
 - Object
 
 因为在ECMAScript中Object是所有对象的基类，所以任何对象都有这些属性和方法
 ![object](../images/fed/object.png)
 
+#### 操作符
+
+- 位操作：ECMAScript中的所有数值都以IEEE 754 64位格式存储，但位操作并不直接应用到64位表示，而是先把值转换为32位整数，再进行位操作，之后再把结果转换为64位。  *即位操作只需要考虑32位整数即可*
+- 有符号整数  前31位代表数值，第32位代表符号 ，0正 1负
+负值使用补码存储 ： 1 计算绝对值的二进制，2 翻转所有位（即补码） 3  加1
+
+- 按位非: ~
+作用：返回一个数的补数，最终效果是对数值取反并减1
+- 按位与: &
+本质是将两个数的每一位对齐 ， 全1 为1
+- 按位或:|
+有1 为1
+- 按位异或:^
+不相同返回1
+- 左移 :<<
+相当于 *2 的n次方
+- 右移: >>
+有符号右移 ，符号位会填入空位
+无符号右移， 空位补0
+
+- 相等操作符
+- 等于和不等于  == != , 比较之前会进行类型转换
+
+1. 数值vs 非数值 ，尝试转换为数值
+2. 字符串vs 非字符串 ,尝试转换为字符串
+3. 对象vs 非对象 ，调用valueOf() ，然后按1 2 比较
+
+特殊规则：
+
+1. null == undefined
+2. null undefined  不发生类型转换
+3. NaA != 任意值 ，返回true ，  包括 NaN != NaN  // true
+4. 比较对象，判断是不是同一对象 ，（引用相同）
+ ![类型转换](../images/fed/equal.png)
+
+- 全等和不全等 ===  !== ， 不会进行类型转换
+比较时不转换操作数
 
 - 控制流
 
