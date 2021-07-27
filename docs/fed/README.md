@@ -209,6 +209,44 @@ console.log(Symbol.ketFor(symbol)); //  查找symbol 对应的键 foo
 
 - 控制流
 
+```js
+/** for in  遍历非 symbol属性  适用对象*/
+for(const prop in object){
+  console.log(prop)
+}
+
+/** for of 遍历可迭代对象 , 使用数组 */
+for (const prop of expression ) {
+  console.log(prop)
+}
+
+/** 标签语句 ，可以配合break continue 使用  */
+outer_block:
+for(let i=0;i<10;i++){
+  inner_block:
+  for(let j=0;j<10;j++){
+     if(j==5){
+       //  跳出标签为 outer_block 的循环
+       break outer_block;
+     }
+     console.log('i,j',i,j);
+  }
+}
+
+/** js switch 的value 可以是任意数据类型，使用=== 进行比较 */
+switch (value){
+  case value1:
+    statement
+    break;
+  case value2:
+    statement;
+    break;
+  default:
+    statement;
+}
+
+```
+
 - 函数
 
 ### 变量 作用域 内存
