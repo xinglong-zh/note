@@ -1,0 +1,100 @@
+//  测试节流  ， 防抖 ， call apply ,bind
+
+
+function logInfo(msg) {
+    // 打印一些东西
+    console.log('测试', new Date(),msg);
+}
+
+let test = debounce(logInfo,2000);
+
+let test1 = throttle(logInfo,2000);
+
+var timeIn = setInterval(() => {
+    // test("防抖");
+    // logInfo("正常");
+    // test1("节流");
+}, 1000)
+
+
+setTimeout(() => {
+    clearInterval(timeIn);
+}, 10000);
+
+
+
+
+// 一秒打印一次 ，5秒后停止
+
+// 准备防抖函数
+/**
+ * 延迟到 delay 之后执行 ， 
+ * @param {*} fn 
+ * @param {*} delay 
+ */
+function debounce(fn, delay) {
+    let timer = null;
+    return function () {
+        let _this = this;
+        let _arguments = arguments;
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            fn.call(_this,..._arguments);
+        }, delay)
+    }
+}
+
+/**
+ * delay 时间内  ， 函数只执行一次
+ * @param {*} fn 
+ * @param {*} delay 
+ */
+function throttle(fn,delay){
+    let timer = null;
+    return function (){
+        if(timer){
+            //  do nothing
+            return;
+        }
+        let _this = this;
+        let _arguments = arguments;
+        timer = setTimeout(() => {
+            fn.apply(_this,_arguments);
+            timer = null;
+        }, delay);
+    
+    }
+}
+
+/**
+ * 模拟 call 调用 ， 
+ * @param {*} context 
+ * @param  {...any} args 
+ * @returns 
+ */
+
+Function.prototype.call2 = function(context,...args){
+    console.log(this,context,args);
+    let fn = '__fn__'
+    context[fn] = this; //  this 指向的就是函数
+    let res = context[fn](...args)
+    delete context[fn];
+    return res;
+}
+
+/**
+ * 利用闭包 ，返回新函数
+ * @param {*} context 
+ * @param  {...any} args 
+ * @returns 
+ */
+Function.prototype.bind2 = function(context,...args){
+    let _this = this;
+    return function(){
+        return _this.call(...args);
+    }
+}
+
+logInfo.call2(this,'hello')
