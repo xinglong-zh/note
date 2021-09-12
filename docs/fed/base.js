@@ -97,4 +97,91 @@ Function.prototype.bind2 = function(context,...args){
     }
 }
 
-logInfo.call2(this,'hello')
+
+/**
+ * 原型链实现继承
+ * 问题 ， 继承的引用类型 ，全部实例共享
+ */
+
+function SuperType(value){
+    this.property = value;
+}
+function SubType(value){
+    this.subProperty = value;
+}
+subType.prototype = new SuperType();  // 原型链挂载实例 ， 关键代码
+
+/**
+ * 盗用构造函数
+ * 问题： 无法调用父类的方法 ，函数
+ */
+
+function SuperType(value){
+    this.value = value;
+}
+
+function SubType(value){
+    SuperType.call(this,"args");     // 调用构造函数，实现继承 
+    this.name = value;
+}
+
+/**
+ * 组合式继承 = 原型链 + 盗用构造函数
+ * 问题 ： 调用两次构造函数
+ */
+
+function SuperType(value){
+    this.property = value;
+}
+
+function SubType(value){
+    SuperType.call(this,"args");  // 盗用构造函数方式 ， 调用构造函数  1
+    this.subProperty = value;
+}
+
+SubType.prototype = new SuperType();   // 原型链的方式 ，  调用构造函数2
+
+
+/**
+ * 原型式继承 ,
+ * 问题 ： 引用对象 所有实例共享
+ */
+
+function object(o){
+    function F(){};
+    F.prototype = o;  //基于传入对象，创建新对象 ，  Object.create();
+    return new F();
+}
+
+
+/**
+ * 寄生式继承 , 增强对象
+ */
+
+function createAnother(original){
+    let clone = object(original);   // 返回临时对象
+    clone.sayHi = function(){       // 增强对象
+        console.log('hello world');
+    }
+    return clone;  // 返回增强后的目标
+}
+
+
+
+/**
+ * 寄生式组合继承 = 寄生式 + 组合继承(原型+构造函数)
+ */
+
+function inheritPrototype(subType,superType){
+    let prototype = createAnother(superType); //创建对象
+    prototype.constructor = subType;  //  增强对象
+    subType.prototype = prototype;  //  赋值对象
+}
+
+
+function SuperType(){
+}
+function SubType(){
+    SuperType.call(this) ; //  构词函数
+}
+inheritPrototype(SubType,SuperType);
