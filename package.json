@@ -7,10 +7,17 @@
   "author": "xinglong-zh <xinglong_zh@foxmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "typescript": "^4.9.3",
+    "vitepress": "^1.0.0-alpha.28",
+    "vue": "^3.2.45",
     "vuepress": "^1.8.2"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1"
   }
 }
