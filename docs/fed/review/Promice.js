@@ -279,34 +279,3 @@ function resolvePromise(promise, x, resolve, reject) {
 
 
 }
-
-
-const p1 = new MPromice((resolve, reject) => {
-    setTimeout(() => {
-        console.log('异步执行')
-    }, 1000)
-
-    resolve('success')
-})
-
-p1.then().then((res) => {
-    console.log('then链式调用:', res)
-})
-
-const p2 = new MPromice((resolve, reject) => {
-    setTimeout(() => {
-        console.log('异步执行2')
-        reject('failed')
-    }, 1000);
-
-    // reject('失败')
-})
-
-p2.then(value => {
-    console.log('成功执行', value)
-}, (reason) => {
-    console.log('失败原因:', reason)
-})
-
-
-
