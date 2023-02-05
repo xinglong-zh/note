@@ -1,17 +1,11 @@
-# FED note
-
-## js高程
-
-JS = ES+DOM+BOM
-
-### html中的js
+# js高级程序设计
+## \<script>标签
 
 <code> \<script> </code> :可选属性
 
-- async(立即开始下载，不能阻止其他页面操作)
-- defer(脚本可以延迟到文档被完全解析和显示后执行)
-- src 外部文件路径
-- type  :module 会被解析为ES6模块
+- async:立即开始下载，不能阻止其他页面操作
+- defer:脚本可以延迟到文档被完全解析和显示后执行
+- src:外部文件路径- type:module 会被解析为ES6模块
 - scrossorigin : 配置相关请求的CORS（跨源资源共享）设置
 
 包含在<code>\<script></code>内的代码会被从上到下解释 ,在<code>\<script></code>元素中的代码被计算完成之前，页面的其余内容不会被加载，也不会被显示。 **阻塞HTML解析**
@@ -21,9 +15,24 @@ JS = ES+DOM+BOM
 现在实践将<code> \script</code> 标签放置在 body 标签之后 ，页面先渲染，然后处理 script 标签 ，用户会感觉加载的更快.
 参考[浏览器](./optimize.md)
 
+### 动态加载脚本
+通过向dom中动态添加script元素可以加载指定脚本（环境切换）
+为了让预加载器识别动态请求的存在，在文档头部显示的进行申明
 ```js
-<link res="proload" href="example.js" >
-使预加载器识别
+<link res="preload" href="example.js" > //使预加载器识别
+
+....
+
+<script>
+let script = document.createElement('script');
+script.src = 'example.js';
+script.async = false;// 兼容
+document.head.appendChild(script);
+</script>
+```
+
+```js
+
 ```
 
 ```js
