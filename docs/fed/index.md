@@ -1,4 +1,5 @@
 # js高级程序设计
+
 ## \<script>标签
 
 <code> \<script> </code> :可选属性
@@ -16,8 +17,10 @@
 参考[浏览器](./optimize.md)
 
 ### 动态加载脚本
+
 通过向dom中动态添加script元素可以加载指定脚本（环境切换）
 为了让预加载器识别动态请求的存在，在文档头部显示的进行申明
+
 ```js
 <link res="preload" href="example.js" > //使预加载器识别
 
@@ -31,7 +34,6 @@ document.head.appendChild(script);
 </script>
 ```
 
-
 ```js
 <noscript>不支持js / 禁用js 的优雅降级  </noscript>
 ```
@@ -44,6 +46,7 @@ document.head.appendChild(script);
 - http2支持：H2对于小文件支持更佳，非H2使用大文件比较合适
 
 ### 小结
+
 1. 要包含外部的js文件，src属性设置为需要包含的url，可以跨域。支持动态添加脚本
 2. <code>\<script></code> 会按照在文档中出现的顺序被解释。除非遇到 <code>defer|async</code>
 3. <code>\<script></code> 标签会阻塞HTML解析，通常放在页面底部 <code>\</body></code>标签之前
@@ -52,11 +55,13 @@ document.head.appendChild(script);
 ## 语言基础
 
 ### 语法
+
 var 函数作用域。声明的**变量**会被自动提升到函数作用域顶部 ，(赋值不会跟随提升) , 全局变量会成为window属性
 let 块作用域。声明之前无法被引用，会抛出referrenceError .全局变量不会成为window 属性
 const 块作用域，行为与let基本相同 ，声明变量必须初始化 。 基本类型，值不可修改，引用类型，内部属性可修改 ，指向不可修改。
 
-### 数据类型：
+### 数据类型
+
 原始数据类型：Undefined,Null,Boolean,Number,String,Symbol
 
 - Undefined ：undefined 未定义
@@ -69,6 +74,7 @@ const 块作用域，行为与let基本相同 ，声明变量必须初始化 。
   - 整数32bit，浮点数64bit，整数占用空间更小，小数点后没有数字的情况下，会被转换成整数。
 
   - 乘2法：浮点数计算方式
+
   ```sh
     0.35×2=0.7 ······ 取0（d1）
     0.7×2=1.4 ······ 取1（d2）
@@ -88,10 +94,11 @@ const 块作用域，行为与let基本相同 ，声明变量必须初始化 。
     所以 0.1 + 0.2 != 0.3 , 二进制无限循环 
 
   ```
+
   - NaN：Not a Number
-      - 任何涉及NaN的操作始终返回NaN
-      - NaN不等于包括NaN在内的任何值
-      - isNaN()函数
+    - 任何涉及NaN的操作始终返回NaN
+    - NaN不等于包括NaN在内的任何值
+    - isNaN()函数
 
   - Number()函数转换规则：
     - 布尔值：true 1 , false 0
@@ -285,7 +292,6 @@ switch (value){
   default:
     statement;
 }
-
 ```
 
 - 函数：要么返回值，要么不返回值，特定条件返回值在调试时会带来麻烦
@@ -305,6 +311,7 @@ ES 的变量分为原始值和引用值 ： 原始值是最简单的数据（按
 - 参数传递
   ECMAScript中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。
   如果是原始值，那么就跟原始值变量的复制一样。如果是引用值，那么就跟引用值变量的复制一样
+
   ```js
   function setName(obj){
     obj.name = 'foo';
@@ -317,13 +324,14 @@ ES 的变量分为原始值和引用值 ： 原始值是最简单的数据（按
   ```
 
 ### 作用域
+
 #### 作用域
+
 - 作用域是：当前执行的上下文，值和表达式在其中可见或可被访问。
 - 作用域链：当在js中使用一个变量的时候，首先js会尝试在当前作用域下寻找该变量，如果没有找到，再到它的上层去寻找，逐级寻找直到找到变量（没找到通常会报错）
 ![上下文链](../images/fed/content.png)
 - 作用域增强：try...catch | with 会添加临时的作用域，代码执行完毕后会删除
 ![作用域增强](../images/fed/content_1.png)
-
 
 ### GC: 垃圾回收
 
@@ -338,6 +346,7 @@ ES 的变量分为原始值和引用值 ： 原始值是最简单的数据（按
 **循环引用的问题：不常用**
 
 #### 内存管理
+
 只保存必要的数据，非不要数据置为null，解除引用。解除引用之后，相关的值不在上下文中，因此下次gc会被回收。
 
 - const，let 提升性能，块级作用域可以更早的触发gc程序介入
@@ -345,13 +354,125 @@ ES 的变量分为原始值和引用值 ： 原始值是最简单的数据（按
 - 防止内存泄露，挂载window上下文的对象，不手动清理 会一直存在 ，闭包很容易导致内存泄露
 - 静态分配和对象池，不要频繁的创建和销毁对象，减少gc的频率。
 
-### 基本引用类型
-
-### 集合引用类型
-
 ### 迭代器与生成器
 
-### 对象类面向对象编程
+**迭代器模式**（特别在ES预警下）描述了一个方案，即可以把有些结构成为“可迭代对象”，因为他们实现了正式的Iterable接口，而且可以用过迭代器Iterator消费。
+
+**生成器**拥有在函数块内暂停和恢复代码执行的能力。使用生成器可以自定义迭代器和实现协程。
+
+- 调用生成器函数会产生一个生成器器对象，该对象也实现了Iterator接口
+- <code>yield</code>关键字可以让生成器停止和开始执行。生成器函数遇到yield之前正常执行，遇到关键词yield停止执行，停止执行的函数调用next()恢复执行
+- return | throw 可以强制生成器进入关闭状态。生成器内部处理了throw，将不会关闭可以继续执行。
+
+```js
+/** 生成器的形式是一个函数，函数名称前面加 （**） */
+/** 箭头函数不能用来定义生成器函数 */
+function * generatorFn () {}
+
+class Bar {
+  static * generatorFn (){}
+}
+```
+
+## 对象类面向对象编程
+
+### 对象（Object）
+
+#### 属性：数据属性+访问器属性
+
+- 数据属性：[[内部属性]]， Object.defineProperty()进行修改
+  - [[Configurable]]：表示属性是否可以通过delete删除并重新定义，是否可以修改它的特性，以及是否可以把它改为访问器属性。默认情况下，所有直接定义在对象上的属性的这个特性都是true，如前面的例子所示。
+  - [[Enumerable]]：表示属性是否可以通过for-in循环返回。默认情况下，所有直接定义在对象上的属性的这个特性都是true，如前面的例子所示。
+  - [[Writable]]：表示属性的值是否可以被修改。默认情况下，所有直接定义在对象上的属性的这个特性都是true，如前面的例子所示。
+  - [[Value]]：包含属性实际的值。这就是前面提到的那个读取和写入属性值的位置。这个特性的默认值为undefined。
+
+- 访问器属性：
+- get:获取函数，读取属性时使用.非必须
+- set：设计函数，写入属性时使用.非必须
+
+```js
+let book = {
+    name_:'foo'
+};
+Object.defineProperty(book,'name',{
+    get(){
+        console.log('getter 触发')
+        return this.name_;
+    },
+    set(value){
+        this.name_=value 
+    },
+})
+
+console.log(book.name); // "foo"
+```
+
+#### 对象创建
+
+<code>new</code>调用构造函数会执行如下操作
+[面试](https://vue3js.cn/interview/)
+
+- 在内存中创建一个新对象
+- 新对象的[[prototype]]被赋值为构造函数的prototype属性
+- 构造函数内部的this被赋值为新对象(this指向新对象)
+- 执行构词函数(给新对象添加属性)
+- 如果构造函数返回非空对象,则返回该对象;否则,返回刚刚创建的对象
+
+```js
+function mynew (Func,...args){
+    // 1.创建新对象
+    let o = new Object();
+    // 2.新对象原型指向构造函数原型对象
+    o.__proto__ = Func.prototype;
+    // 3.更改构造函数指向
+    let result = Func.apply(o,args)
+    // 4. 根据返回类型判断
+    return result instanceof Object ? result : o;
+}
+
+function Person (name){
+    this.name = name;
+}
+
+Person.prototype.say = function(){
+    console.log(this.name)
+};
+
+let p = mynew(Person,'dai');
+
+p.say()
+
+
+```
+
+#### 原型
+
+- 创建一个函数(构造函数),会自动添加一个prototype属性(指向原型对象).  Person.prototype ==> Person原型对象
+- 原型对象会有一个constructor属性, 指向与之关联的构造函数.   Person原型对象.constructor ==> Person(构造函数)
+- 构造函数产生的实例内部 [[prototype]]属性指向原型对象,该属性不可访问,浏览器会暴露__proto__属性用来访问原型对象.  person[[prototype]] ==>Person 原型对象, 通过__proto__访问
+- 实例有指向原始对象的指针,没有指向构造函数的指针
+  
+```js
+// 构造函数
+function Person {}
+
+Person.prototype.constructor === Person ; // prototype指向原型对象,原型对象的constructor 指向构造函数
+
+let person1 = new Person();
+let person2 = new Person();
+
+person1.__proto__ === Person.prototype ; // 通过 __proto__ 访问原型对象
+person1.__proto__ === person2.__proto__ ;  // 同一个构造函数创建的实例,共享原型对象
+
+````
+
+![原型](../images/fed/prototype.drawio.svg)
+
+**原型层级**:在通过对象访问属性时,会按照属性名开始搜索.从实例本身开始,如果没有搜索到这个属性,会沿着指针进入原型对象搜索,找到属性后返回结果
+
+- for-in 遍历会返回实例属性和原型属性
+
+#### 继承
 
 ### 代理与反射
 
